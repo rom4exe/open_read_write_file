@@ -81,14 +81,70 @@ def Averaged(self):
     else:
         return "Оценок нет"
 
-best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
 
-cool_mentor = Mentor('Some', 'Buddy')
-cool_mentor.courses_attached += ['Python']
+def Aver_course(list_any, course):
+    a = 0
+    l = 0
+    for std in list_any:
+        if course in std.grades.keys():
+            sred_ed = (sum(std.grades[course])) / (len(std.grades[course]))
+            a += 1
+            l += sred_ed
+        else:
+            continue
+    return (course, l / a)
 
-# cool_mentor.rate_hw(best_student, 'Python', 10)
-# cool_mentor.rate_hw(best_student, 'Python', 10)
-# cool_mentor.rate_hw(best_student, 'Python', 10)
 
-print(best_student.grades)
+best_student1 = Student('Ruoy', 'Eman', 'm')
+best_student1.courses_in_progress += ['Python']
+
+best_student2 = Student('Ivan', 'Petrov', 'm')
+best_student2.courses_in_progress += ['Python', 'Java']
+best_student2.finished_courses += ['Delphi']
+
+lecturer1 = Lecturer('Петр', 'Филипов')
+lecturer1.courses_attached += ['Python']
+
+lecturer2 = Lecturer('Геннадий', 'Аффанасьев')
+lecturer2.courses_attached += ['Python', 'Java']
+
+reviewer1 = Reviewer('Василий', 'Парфёнов')
+reviewer1.courses_attached += ['Python']
+
+reviewer2 = Reviewer('Евгений', 'Тодоренко')
+reviewer2.courses_attached += ['Java']
+
+reviewer1.rate_hw(best_student1, 'Python', 10)
+reviewer1.rate_hw(best_student1, 'Python', 6)
+reviewer1.rate_hw(best_student2, 'Python', 8)
+reviewer2.rate_hw(best_student2, 'Java', 7)
+
+best_student1.rate_ment(lecturer1, 'Python', 9)
+best_student2.rate_ment(lecturer1, 'Python', 7)
+best_student2.rate_ment(lecturer2, 'Java', 10)
+best_student2.rate_ment(lecturer2, 'Python', 7)
+
+list_lecturers = [lecturer1, lecturer2]
+list_students = [best_student1, best_student2]
+
+print(best_student1)
+print(best_student2)
+
+print(lecturer1)
+print(lecturer2)
+
+print(reviewer1)
+
+print(best_student1 < best_student2)
+print(lecturer1 > lecturer2)
+print(lecturer1 > best_student1)
+
+stud_aver = Aver_course(list_students, 'Python')
+stud_aver2 = Aver_course(list_students, 'Java')
+lect_aver = Aver_course(list_lecturers, 'Java')
+lect_aver2 = Aver_course(list_lecturers, 'Python')
+
+print(f"средняя оценка по всем студентам курса {stud_aver[0]}: {stud_aver[1]}")
+print(f"средняя оценка по всем студентам курса {stud_aver2[0]}: {stud_aver2[1]}")
+print(f"средняя оценка по всем лекторам курса {lect_aver[0]}: {lect_aver[1]}")
+print(f"средняя оценка по всем лекторам курса {lect_aver2[0]}: {lect_aver2[1]}")
