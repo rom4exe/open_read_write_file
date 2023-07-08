@@ -33,8 +33,30 @@ def get_shop_list_by_dishes(dishes, person_count):
     return ingr_list
 
 
+def write_file(file_1, file_2, file_3):
+    names = [file_1, file_2, file_3]
+    result_file = "result_file.txt"
+    name_len = {}
+    for name in names:
+        with open(name) as f:
+            length = f.readlines()
+        name_len[name] = len(length)
+    names = sorted(name_len, key=name_len.get)
+    with open(result_file, 'w') as f_result:
+        for name in names:
+             with open(name) as f:
+                 f_result.write(name + '\n')
+                 f_result.write(str(name_len[name]) + '\n')
+                 f_result.writelines(f)
+                 f_result.write('\n\n')
+    return print('Файл "result_file.txt" создан в директории с прогаммой')
+
+
 cook_book = read_recipes()
 print(f'ЗД_1 read recipes \n {cook_book} \n')
 
 print('ЗД_2 посчитать заказ')
 print(get_shop_list_by_dishes(['Омлет', 'Фахитос', 'Шашлык'], 2), '\n')
+
+print('ЗД_3', end=' ')
+write_file('1.txt', '2.txt', '3.txt')
